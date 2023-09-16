@@ -23,31 +23,6 @@ export default class MoviesDAO {
         }
     }
 
-    // static async getMovieById(id) {
-    //     try {
-    //         return await movies.aggregate([
-    //             {
-    //                 $match: {
-    //                     _id: new ObjectId(id),
-    //                 }
-    //             },
-    //             {
-    //                 $lookup:
-    //                 {
-    //                     from: 'reviews',
-    //                     localField: '_id',
-    //                     foreignField: 'movie_id',
-    //                     as: 'reviews',
-    //                 }
-    //             }
-    //         ]).next()
-    //     }
-    //     catch (e) {
-    //         console.error(`something went wrong in getMovieById: ${e}`)
-    //         throw e
-    //     }
-    // }
-
     //-- the getMovies method accepts a filter object as its first argument
     //   the default filter has no filters, retrieves results at page 0 and retrieves 20 movies per page
     //   In our app, we provide filtering results by movie title “title” and movie rating “rated” --//
@@ -82,6 +57,31 @@ export default class MoviesDAO {
             return { moviesList: [], totalNumMovies: 0 }
         }
     }
+
+    // static async getMovieById(id) {
+    //     try {
+    //         return await movies.aggregate([
+    //             {
+    //                 $match: {
+    //                     _id: new ObjectId(id),
+    //                 }
+    //             },
+    //             {
+    //                 $lookup:
+    //                 {
+    //                     from: 'reviews',
+    //                     localField: '_id',
+    //                     foreignField: 'movie_id',
+    //                     as: 'reviews',
+    //                 }
+    //             }
+    //         ]).next()
+    //     }
+    //     catch (e) {
+    //         console.error(`something went wrong in getMovieById: ${e}`)
+    //         throw e
+    //     }
+    // }
 
     // static async getRatings() {
     //     let ratings = []
