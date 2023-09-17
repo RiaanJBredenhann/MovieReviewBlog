@@ -58,41 +58,48 @@ export default class MoviesDAO {
         }
     }
 
-    // static async getMovieById(id) {
-    //     try {
-    //         return await movies.aggregate([
-    //             {
-    //                 $match: {
-    //                     _id: new ObjectId(id),
-    //                 }
-    //             },
-    //             {
-    //                 $lookup:
-    //                 {
-    //                     from: 'reviews',
-    //                     localField: '_id',
-    //                     foreignField: 'movie_id',
-    //                     as: 'reviews',
-    //                 }
-    //             }
-    //         ]).next()
-    //     }
-    //     catch (e) {
-    //         console.error(`something went wrong in getMovieById: ${e}`)
-    //         throw e
-    //     }
-    // }
+    static async getMovieById(id) {
+        try {
+            // we use aggregate to provide a sequence of data aggregation operations
+            return await movies.aggregate([
+                {
+                    // in our case, the first operation is $match,
+                    // where we look for the movie document that matches the specified id
+                    $match: {
+                        _id: new ObjectId(id),
+                    }
+                },
+                {
+                    // next, we use the $lookup operator to perform an equality join using the _id field
+                    // from the movie document with the movie_id field from reviews collection
+                    $lookup:
+                    {
+                        from: 'reviews',
+                        localField: '_id',
+                        foreignField: 'movie_id',
+                        as: 'reviews',
+                    }
+                }
+            ]).next()
+        }
+        catch (e) {
+            console.error(`something went wrong in getMovieById: ${e}`)
+            throw e
+        }
+    }
 
-    // static async getRatings() {
-    //     let ratings = []
-    //     try {
-    //         ratings = await movies.distinct("rated")
-    //         return ratings
-    //     }
-    //     catch (e) {
-    //         console.error(`unable to get ratings, $(e)`)
-    //         return ratings
-    //     }
-    // }
+    static async getRatings() {
+        let ratings = []
+        try {
+            // we use movies.distinct to get all the distinct rated values from the movies collection
+            // we then assign the results to the ratings array
+            ratings = await movies.distinct("rated")
+            return ratings
+        }
+        catch (e) {
+            console.error(`unable to get ratings, $(e)`)
+            return ratings
+        }
+    }
 
 }
