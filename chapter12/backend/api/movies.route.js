@@ -6,8 +6,8 @@ const router = express.Router() // get access to express router
 
 //router.route('/').get((req,res) => res.send('hello world'))
 router.route('/').get(MoviesController.apiGetMovies)
-// router.route("/id/:id").get(MoviesController.apiGetMovieById)
-// router.route("/ratings").get(MoviesController.apiGetRatings)
+router.route("/id/:id").get(MoviesController.apiGetMovieById)
+router.route("/ratings").get(MoviesController.apiGetRatings)
 
 //-- we add a route '/review' which handles post, put and delete http requests all within this one route call
 //   that is to say, if the '/review' route receives a post http request to add a review, we call apiPostReview

@@ -36,31 +36,37 @@ export default class MoviesController {
         res.json(response)
     }
 
-    // static async apiGetMovieById(req,res, next){
-    //     try{
-    //         let id = req.params.id || {}
-    //         let movie = await MoviesDAO.getMovieById(id)
-    //         if(!movie){ 
-    //             res.status(404).json({ error: "not found"})
-    //             return
-    //         }
-    //         res.json(movie)
-    //     }
-    //     catch(e){
-    //         console.log(`api, ${e}`)
-    //         res.status(500).json({error: e})
-    //     }
-    // }
+    static async apiGetMovieById(req, res, next) {
+        try {
 
-    // static async apiGetRatings(req,res,next){
-    //     try{ 
-    //         let propertyTypes = await MoviesDAO.getRatings()
-    //         res.json(propertyTypes)
-    //     }
-    //     catch(e){
-    //         console.log(`api,${e}`)
-    //         res.status(500).json({error: e})
-    //     }
-    // }
+            // We first look for an id parameter which is the value after the ‘/’ in a URL
+            // E.g. localhost:5000/api/v1/movies/id/12345
+            let id = req.params.id || {}
+
+            // this method returns us the specific movie in a JSON response
+            // if there is no movie, we return an error
+            let movie = await MoviesDAO.getMovieById(id)
+            if (!movie) {
+                res.status(404).json({ error: "not found" })
+                return
+            }
+            res.json(movie)
+        }
+        catch (e) {
+            console.log(`api, ${e}`)
+            res.status(500).json({ error: e })
+        }
+    }
+
+    static async apiGetRatings(req, res, next) {
+        try {
+            let propertyTypes = await MoviesDAO.getRatings()
+            res.json(propertyTypes)
+        }
+        catch (e) {
+            console.log(`api,${e}`)
+            res.status(500).json({ error: e })
+        }
+    }
 
 }
