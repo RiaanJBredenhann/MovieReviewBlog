@@ -6,6 +6,7 @@ let reviews
 
 export default class ReviewsDAO {
     static async injectDB(conn) {
+        // If reviews is not filled, we then access the database reviews collection
         if (reviews) {
             return
         }
