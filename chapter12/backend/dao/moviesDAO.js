@@ -97,7 +97,7 @@ export default class MoviesDAO {
             return ratings
         }
         catch (e) {
-            console.error(`unable to get ratings, $(e)`)
+            console.error(`unable to get ratings, ${e}`)
             return ratings
         }
     }
