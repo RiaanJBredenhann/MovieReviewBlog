@@ -31,7 +31,7 @@ function App() {
               <Link to={'/movies'}>Movies</Link>
             </Nav.Link>
             <Nav.Link>
-              { user ? (
+              {user ? (
                 <a onClick={logout}>Logout User</a>
               ) : (
                 <Link to={'/login'}>Login</Link>
@@ -40,6 +40,23 @@ function App() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <Switch>
+        <Route exact path={['/', '/movies']} component={MoviesList}>Movies List</Route>
+        {/* we use render instead of component because render allows us
+            to pass in props into a component rendered by React Router */}
+        <Route path="/movies/:id/review" render={(props) =>
+          <AddReview {...props} user={user} />
+        }>
+        </Route>
+        <Route path="/movies/:id/" render={(props) =>
+          <Movie {...props} user={user} />
+        }>
+        </Route>
+        <Route path="/login" render={(props) =>
+          <Login {...props} login={login} />
+        }>
+        </Route>
+      </Switch>
     </div>
   );
 }
