@@ -71,18 +71,21 @@ const MoviesList = props => {
     //-- the find function is supported by the findByTitle and findByRating methods
     //-- find simply provides the search query value entered by the user 
     //   and by which field to search (i.e. title or rated) to MovieDataService.find
+    const find = (query, by) => {
+        MovieDataService.find(query, by)
+            .then(response => {
+                console.log(response.data);
+                setMovies(response.data.movies);
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
 
     //-- findByTitle is called by the "Search by title" search button
     //-- it provides the title value to be searched to find() and tells it to search by "title"
-    const find = (query, by) => {
-        MovieDataService.find(query, by)
-        .then(response => {
-            console.log(response.data);
-            setMovies(response,data.movies);
-        })
-        .catch(e => {
-            console.log(e)
-        })
+    const findByTitle = () => {
+        find(searchTitle, "title")
     }
 
     //-- findByRating is called by the "Search by rating" search button
