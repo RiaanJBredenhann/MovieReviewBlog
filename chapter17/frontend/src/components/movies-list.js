@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
 
 //-- functional component that receives and uses props
 //-- we use the React useState hook to create the movies, searchTitle, searchRating and ratings state variables
@@ -67,6 +68,37 @@ const MoviesList = props => {
         setSearchRating(searchRating);
     }
 
+    //-- the find function is supported by the findByTitle and findByRating methods
+    //-- find simply provides the search query value entered by the user 
+    //   and by which field to search (i.e. title or rated) to MovieDataService.find
+
+    //-- findByTitle is called by the "Search by title" search button
+    //-- it provides the title value to be searched to find() and tells it to search by "title"
+    const find = (query, by) => {
+        MovieDataService.find(query, by)
+        .then(response => {
+            console.log(response.data);
+            setMovies(response,data.movies);
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    }
+
+    //-- findByRating is called by the "Search by rating" search button
+    //-- it provides the rating value to be searched to find() and tells it to search by "rated".
+    //-- however, if the user did not specify any rating value, 
+    //   the search value defaults to "All Ratings" and simply retrieves all movies
+    const findByRating = () => {
+        if (searchRating === "All Ratings") {
+            retrieveMovies();
+        }
+        else {
+            find(searchRating, "rated");
+        }
+    }
+
+
     return (
         <div className="App">
             <Container>
@@ -110,6 +142,23 @@ const MoviesList = props => {
                         </Col>
                     </Row>
                 </Form>
+                <Row>
+                    {movies.map((movie) => {
+                        return (
+                            <Col>
+                                <Card style={{ width: '18rem' }}>
+                                    <Card.Img src={movie.poster + "/100px180"} />
+                                    <Card.Body>
+                                        <Card.Title>{movie.title}</Card.Title>
+                                        <Card.Text>Rating: {movie.rated}</Card.Text>
+                                        <Card.Text>{movie.plot}</Card.Text>
+                                        <Link to={"/movies/" + movie._id} >View Reviews</Link>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )
+                    })}
+                </Row>
             </Container>
         </div>
     )
