@@ -13,6 +13,9 @@ const MoviesList = props => {
     const [ searchRating, setSearchRating ] = useState("");
     const [ ratings, setRatings ] = useState(["All Ratings"]);
 
+    //-- the useEffect hook is called after the component renders
+    //-- so if we want to tell the component to perform some code after rendering, we include it here
+    //-- in our case, after the component renders, we want to retrieve movies and ratings
     useEffect(() => {
         retrieveMovies()
         retrieveRatings()
@@ -28,6 +31,18 @@ const MoviesList = props => {
             console.log(e)
         })
     }
+
+    const retrieveRatings = () => {
+        MovieDataService.getRatings()
+        .then(response => {
+            console.log(response.data)
+            setRatings(["All Ratings"].concat(response.data))
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    }
+
 }
 
 export default MoviesList;
