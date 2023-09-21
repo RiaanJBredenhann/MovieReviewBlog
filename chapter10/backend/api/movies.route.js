@@ -8,9 +8,9 @@ const router = express.Router() // get access to express router
 router.route('/').get(MoviesController.apiGetMovies)
 
 //-- we add a route '/review' which handles post, put and delete http requests all within this one route call
-//   that is to say, if the '/review' route receives a post http request to add a review, we call apiPostReview
-//   if '/review' receives a put http request to edit a review, call apiUpdateReview
-//   and finally, if '/review' receives a delete http request to delete a review, call apiDeleteReview --//
+//-- that is to say, if the '/review' route receives a post http request to add a review, we call apiPostReview
+//-- if '/review' receives a put http request to edit a review, call apiUpdateReview
+//-- and finally, if '/review' receives a delete http request to delete a review, call apiDeleteReview
 router
     .route("/review")
     .post(ReviewsController.apiPostReview)
