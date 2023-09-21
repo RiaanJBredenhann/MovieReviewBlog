@@ -38,7 +38,6 @@ export default class MoviesController {
 
     static async apiGetMovieById(req, res, next) {
         try {
-
             // We first look for an id parameter which is the value after the ‘/’ in a URL
             // E.g. localhost:5000/api/v1/movies/id/12345
             let id = req.params.id || {}
@@ -64,7 +63,7 @@ export default class MoviesController {
             res.json(propertyTypes)
         }
         catch (e) {
-            console.log(`api,${e}`)
+            console.log(`api, ${e}`)
             res.status(500).json({ error: e })
         }
     }
