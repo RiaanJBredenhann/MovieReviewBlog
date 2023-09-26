@@ -41,7 +41,7 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
       <Switch>
-        <Route exact path={['/', '/movies']} component={MoviesList}>Movies List</Route>
+        <Route exact path={['/', '/movies']} component={MoviesList}></Route>
         {/* we use render instead of component because render allows us
             to pass in props into a component rendered by React Router */}
         <Route path="/movies/:id/review" render={(props) =>
