@@ -40,4 +40,5 @@ class MovieDataService {
 
 }
 
-export default new MovieDataService()
+const movieDataService = new MovieDataService();
+export default movieDataService;
