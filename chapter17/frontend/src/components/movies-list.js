@@ -101,7 +101,6 @@ const MoviesList = props => {
         }
     }
 
-
     return (
         <div className="App">
             <Container>
