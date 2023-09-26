@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Media from 'react-bootstrap/Media';
+import moment from 'moment';
 
 const Movie = props => {
 
@@ -68,7 +69,7 @@ const Movie = props => {
                             return (
                                 <Media key={index}>
                                     <Media.Body>
-                                        <h5>{review.name + " reviewed on " + review.date}</h5>
+                                        <h5>{review.name + " reviewed on " + review.date} {moment(review.date).format("Do MMMM YYYY")}</h5>
                                         <p>{review.review}</p>
                                         {props.user && props.user.id === review.user_id &&
                                             <Row>
