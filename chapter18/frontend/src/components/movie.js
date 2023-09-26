@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import MovieDataService from '../services/movies';
 import { Link } from 'react-router-dom'
 import movieDataService from '../services/movies';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import Media from 'react-bootstrap/Media';
 
 const Movie = props => {
 
@@ -17,13 +24,13 @@ const Movie = props => {
     //-- this method calls get() of MovieDataService
     const getMovie = id => {
         movieDataService.get(id)
-        .then(response => {
-            setMovie(response.data)
-            console.log(response.data)
-        })
-        .catch(e => {
-            console.log(e)
-        })
+            .then(response => {
+                setMovie(response.data)
+                console.log(response.data)
+            })
+            .catch(e => {
+                console.log(e)
+            })
     }
 
     //-- we provide props.match.params.id into the second argument array
@@ -39,7 +46,24 @@ const Movie = props => {
 
     return (
         <div>
-
+            <Container>
+                <Row>
+                    <Col>
+                        <Image src={movie.poster + '/100px250'} fluid></Image>
+                    </Col>
+                    <Col>
+                        <Card>
+                            <Card.Header as='h5'>{movie.title}</Card.Header>
+                            <Card.Body>
+                                <Card.Text>{movie.plot}</Card.Text>
+                                {props.user &&
+                                    <Link to={'/movies/' + props.match.params.id + '/review'}>Add Review</Link>
+                                }
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 
