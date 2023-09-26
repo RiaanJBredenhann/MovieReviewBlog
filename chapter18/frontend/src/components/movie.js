@@ -61,6 +61,8 @@ const Movie = props => {
                                 }
                             </Card.Body>
                         </Card>
+                        <br></br>
+                        <h2>Reviews</h2>
                     </Col>
                 </Row>
             </Container>
