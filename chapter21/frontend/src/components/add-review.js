@@ -6,17 +6,24 @@ import Button from 'react-bootstrap/Button';
 
 const addReview = props => {
 
+    //-- the editing boolean variable will be set to true if the component is in 'editing' mode
+    //   false means we are adding a review
     let editing = false;
     let initialReviewState = "";
 
     const [review, setReview] = useState(initialReviewState);
     const [submitted, setSubmitted] = useState(false);
 
+    //-- keeps track of the user-entered review value in the field
     const onChangeReview = e => {
         const review = e.targte.value;
         setReview(review);
     }
 
+    //-- is called by the submit button’s onClick={saveReview}
+    //   we first create a data object containing the review's properties
+    //   we get name and user_id from props as this is passed into the AddReview component back in App.js
+    //   we get movie_id (movie_id: props.match.params.id) direct from the url back in movie.js
     const saveReview = () => {
         var data = {
             review: review,
@@ -26,6 +33,8 @@ const addReview = props => {
         }
     }
 
+    //-- this methid routes to ReviewsController in our backend and calls apiPostReview 
+    //   which then extracts data from the request's body parameter
     MovieDataService.createReview(data)
     .then(response => {
         setSubmitted(true);
