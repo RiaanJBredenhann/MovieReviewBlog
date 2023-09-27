@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const addReview = props => {
+const AddReview = props => {
 
     //-- the editing boolean variable will be set to true if the component is in 'editing' mode
     //   false means we are adding a review
