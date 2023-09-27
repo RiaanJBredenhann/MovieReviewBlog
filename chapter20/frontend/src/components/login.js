@@ -35,7 +35,7 @@ const Login = props => {
     return (
         <div>
             <Form>
-                <From.Group>
+                <Form.Group>
                     <Form.Label>Username</Form.Label>
                     <Form.Control
                         type='text'
@@ -43,8 +43,8 @@ const Login = props => {
                         value={name}
                         onChange={onChangeName}>
                     </Form.Control>
-                </From.Group>
-                <From.Group>
+                </Form.Group>
+                <Form.Group>
                     <Form.Label>ID</Form.Label>
                     <Form.Control
                         tupe='text'
@@ -52,7 +52,7 @@ const Login = props => {
                         value={id}
                         onChange={onChangeId}>
                     </Form.Control>
-                </From.Group>
+                </Form.Group>
                 <Button variant='primary' onClick={login}>Submit</Button>
             </Form>
         </div>
