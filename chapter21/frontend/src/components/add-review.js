@@ -22,7 +22,7 @@ const AddReview = props => {
 
     //-- keeps track of the user-entered review value in the field
     const onChangeReview = e => {
-        const review = e.targte.value;
+        const review = e.target.value;
         setReview(review);
     }
 
