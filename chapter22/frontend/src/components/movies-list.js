@@ -30,6 +30,8 @@ const MoviesList = props => {
         retrieveRatings()
     }, [])
 
+    //-- because we specified currentPage in the 2nd argument array, each time currentPage changes in value,
+    //   this useEffect will be trigged and call retrieveMovies with the updated currentPage value
     useEffect(() => {
         retrieveMovies()
     }, [currentPage])
@@ -37,6 +39,7 @@ const MoviesList = props => {
     //-- calls MovieDataService.getAll()
     //-- getAll returns a promise with the movies retrieved from the database 
     //   and we set it to the movies state variable with setMovies(response.data.movies)
+    //-- we also setCurrentPage and setEntriesPerPage
     const retrieveMovies = () => {
         MovieDataService.getAll()
             .then(response => {
