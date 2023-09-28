@@ -45,6 +45,7 @@ const Movie = props => {
         getMovie(props.match.params.id)
     }, [props.match.params.id])
 
+    //-- the delete endpoint is supported by apiDeleteReview in ReviewsController in the backend
     const deleteReview = (reviewId, index) => {
         MovieDataService.deleteReview(reviewId, props.user.id)
             .then(response => {
