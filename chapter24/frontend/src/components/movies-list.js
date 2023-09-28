@@ -20,6 +20,15 @@ const MoviesList = props => {
     const [ratings, setRatings] = useState(["All Ratings"]);
     const [currentPage, setCurrentPage] = useState(0);
     const [entriesPerPage, setEntriesPerPage] = useState(0);
+    const [currentSearchMode, setCurrentSearchMode] = useState("");
+
+    //-- we declare a new state variable currentSearchMode which 
+    //   contains the value either "", "findByTitle" or "findByRating
+    //-- we add a useEffect that whenever currentSearchMode changes, 
+    //   reset the currentPage to zero since it's a new search
+    useEffect(() => {
+        setCurrentPage(0)
+    }, [currentSearchMode])
 
     //-- the useEffect hook is called after the component renders
     //-- so if we want to tell the component to perform some code after rendering, we include it here
@@ -33,7 +42,7 @@ const MoviesList = props => {
     //-- because we specified currentPage in the 2nd argument array, each time currentPage changes in value,
     //   this useEffect will be trigged and call retrieveMovies with the updated currentPage value
     useEffect(() => {
-        retrieveMovies()
+        retrieveNextPage()
     }, [currentPage])
 
     //-- calls MovieDataService.getAll()
@@ -41,6 +50,7 @@ const MoviesList = props => {
     //   and we set it to the movies state variable with setMovies(response.data.movies)
     //-- we also setCurrentPage and setEntriesPerPage
     const retrieveMovies = () => {
+        setCurrentSearchMode("")
         MovieDataService.getAll()
             .then(response => {
                 console.log(response.data)
@@ -65,6 +75,16 @@ const MoviesList = props => {
             })
     }
 
+    //-- depending on the currentSearchMode, this method calls the relevant retrieval functions
+    const retrieveNextPage = () => {
+        if (currentSearchMode === "find by title")
+            findByTitle()
+        else if (currentSearchMode === "find by rating")
+            findByRating()
+        else 
+            retrieveMovies()
+    }
+
     //-- will be called whenever a user types into the search title field 
     //   and will then take the entered value and set it to the component state
     const onChangeSearchTitle = e => {
@@ -83,7 +103,7 @@ const MoviesList = props => {
     //-- find simply provides the search query value entered by the user 
     //   and by which field to search (i.e. title or rated) to MovieDataService.find
     const find = (query, by) => {
-        MovieDataService.find(query, by)
+        MovieDataService.find(query, by, currentPage)
             .then(response => {
                 console.log(response.data);
                 setMovies(response.data.movies);
@@ -96,6 +116,7 @@ const MoviesList = props => {
     //-- findByTitle is called by the "Search by title" search button
     //-- it provides the title value to be searched to find() and tells it to search by "title"
     const findByTitle = () => {
+        setCurrentSearchMode("findByTitle")
         find(searchTitle, "title")
     }
 
@@ -104,6 +125,7 @@ const MoviesList = props => {
     //-- however, if the user did not specify any rating value, 
     //   the search value defaults to "All Ratings" and simply retrieves all movies
     const findByRating = () => {
+        setCurrentSearchMode("findByRating")
         if (searchRating === "All Ratings") {
             retrieveMovies();
         }
