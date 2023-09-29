@@ -51,7 +51,7 @@ const MoviesList = props => {
     //-- we also setCurrentPage and setEntriesPerPage
     const retrieveMovies = () => {
         setCurrentSearchMode("")
-        MovieDataService.getAll()
+        MovieDataService.getAll(currentPage)
             .then(response => {
                 console.log(response.data)
                 setMovies(response.data.movies)
