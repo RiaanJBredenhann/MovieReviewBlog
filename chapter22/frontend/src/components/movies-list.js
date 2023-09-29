@@ -37,8 +37,6 @@ const MoviesList = props => {
             .then(response => {
                 console.log(response.data)
                 setMovies(response.data.movies)
-                setCurrentPage(response.data.page)
-                setEntriesPerPage(response.data.entries_per_page)
             })
             .catch(e => {
                 console.log(e)
