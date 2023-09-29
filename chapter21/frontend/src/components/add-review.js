@@ -50,7 +50,7 @@ const AddReview = props => {
                 })
         }
         else {
-            //-- this methid routes to ReviewsController in our backend and calls apiPostReview 
+            //-- this method routes to ReviewsController in our backend and calls apiPostReview 
             //   which then extracts data from the request's body parameter
             MovieDataService.createReview(data)
                 .then(response => {
