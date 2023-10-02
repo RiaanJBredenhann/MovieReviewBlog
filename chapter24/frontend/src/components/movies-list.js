@@ -30,6 +30,12 @@ const MoviesList = props => {
         setCurrentPage(0)
     }, [currentSearchMode])
 
+    //-- because we specified currentPage in the 2nd argument array, each time currentPage changes in value,
+    //   this useEffect will be trigged and call retrieveMovies with the updated currentPage value
+    useEffect(() => {
+        retrieveNextPage()
+    }, [currentPage])
+
     //-- the useEffect hook is called after the component renders
     //-- so if we want to tell the component to perform some code after rendering, we include it here
     //-- in our case, after the component renders, we want to retrieve movies and ratings
@@ -38,12 +44,6 @@ const MoviesList = props => {
         retrieveMovies()
         retrieveRatings()
     }, [])
-
-    //-- because we specified currentPage in the 2nd argument array, each time currentPage changes in value,
-    //   this useEffect will be trigged and call retrieveMovies with the updated currentPage value
-    useEffect(() => {
-        retrieveNextPage()
-    }, [currentPage])
 
     //-- calls MovieDataService.getAll()
     //-- getAll returns a promise with the movies retrieved from the database 
@@ -81,7 +81,7 @@ const MoviesList = props => {
             findByTitle()
         else if (currentSearchMode === "find by rating")
             findByRating()
-        else 
+        else
             retrieveMovies()
     }
 
