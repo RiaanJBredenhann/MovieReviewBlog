@@ -41,7 +41,7 @@ const MoviesList = props => {
     //-- in our case, after the component renders, we want to retrieve movies and ratings
     //-- we specify an empty array in the second argument of the method so that its only called once
     useEffect(() => {
-        retrieveMovies()
+        //retrieveMovies()
         retrieveRatings()
     }, [])
 
@@ -204,7 +204,7 @@ const MoviesList = props => {
                 </Button>
             </Container>
         </div>
-    )
+    );
 
 }
 
