@@ -63,5 +63,6 @@ export default class ReviewsDAO {
         }
     }
 
-
 }
+
+// final product

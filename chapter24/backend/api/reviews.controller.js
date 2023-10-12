@@ -77,5 +77,6 @@ export default class ReviewsController {
         }
     }
 
-
 }
+
+// final product
